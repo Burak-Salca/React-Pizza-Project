@@ -13,6 +13,9 @@ export default {
         red: '#CE2829',
         beige: '#FAF7F2',
       },
+      fontFamily: {
+        barlow: ['Barlow', 'sans-serif'],
+      },
     },
   },
   plugins: [],

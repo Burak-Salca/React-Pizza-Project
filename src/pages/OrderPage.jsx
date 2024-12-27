@@ -1,7 +1,12 @@
 import React from 'react'
+import Header from '../layouts/Header'
 
 export default function OrderPage() {
   return (
-    <div>OrderPage</div>
+    <div>
+      <div>
+        <Header/>
+      </div>
+    </div>
   )
 }

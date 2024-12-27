@@ -5,7 +5,7 @@ export default function HomePage() {
   const history = useHistory();
 
   const handleClick = () => {
-    history.push('/orderPage'); 
+    history.push('/order'); 
   };
 
   return (
