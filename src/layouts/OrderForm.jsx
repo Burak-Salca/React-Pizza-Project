@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import ProductInfo from '../components/ProductInfo'
 import SizeOption from '../components/SizeOption'
 import ThicknessOption from '../components/ThicknessOption'
+import ExtraIngredient from '../components/ExtraIngredient'
+import Note from '../components/Note'
+import AddToCart from '../components/AddToCart'
 
 
 export default function OrderForm() {
@@ -18,13 +21,14 @@ export default function OrderForm() {
                 <ThicknessOption/>
             </div>
             <div>
-                Extra Ingredient
+                <ExtraIngredient/>
             </div>
             <div>
-                Note
+                <Note/>
             </div>
+            <hr className="border-t border-lightGray my-4" />
             <div>
-                calculation
+                <AddToCart/>
             </div>
         </div>
     </div>
