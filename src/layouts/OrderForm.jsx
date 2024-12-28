@@ -11,7 +11,7 @@ export default function OrderForm() {
     
 
   return (
-    <div className="w-3/4 mx-auto flex flex-col h-screen mt-12 gap-4">
+    <div className="w-1/2 mx-auto flex flex-col h-screen mt-12 gap-4">
         <div>
             <ProductInfo/>
         </div>
