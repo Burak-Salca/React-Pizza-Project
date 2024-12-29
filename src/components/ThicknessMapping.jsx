@@ -1,12 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function ThicknessMapping(props) {
-    const {options} = props;
+    const {options, handleSelect, thicknessError} = props;
     const [selectedOption, setSelectedOption] = useState("");
 
     const handleChange = (event) => {
-        setSelectedOption(event.target.value);
+        const selectedValue = event.target.value;
+        setSelectedOption(selectedValue);
+        handleSelect(selectedValue);
       };
+
+      useEffect(() => {
+        if (!thicknessError) {
+          setSelectedOption("");
+        }
+      }, [thicknessError]);
 
   return (
     <div>
@@ -20,6 +28,9 @@ export default function ThicknessMapping(props) {
           </option>
         ))}
       </select>
+      {thicknessError && (
+        <p className="text-red text-sm mt-2">Kalınlık seçmelisiniz!</p>
+      )}
     </div>
   )
 }

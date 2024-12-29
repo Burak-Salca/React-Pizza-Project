@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import ThicknessMapping from './ThicknessMapping'
 
-export default function ThicknessOption() {
-
+export default function ThicknessOption(props) {
+  const { thicknessError, setErrors, setSelectedThickness } = props;
   const ThicknessOptions = [
     {
         "value": "",
@@ -32,12 +32,23 @@ export default function ThicknessOption() {
         "disabled": false,
         "hidden": false,
     },
-]
+  ]
+
+  const handleSelect = (value) => {
+    setSelectedThickness(value);
+    if (value) {
+      setErrors((prev) => ({ ...prev, thicknessError: false }));  
+    }
+  };
 
   return (
     <div className="flex flex-col gap-4 font-barlow"> 
       <h2 className="font-bold text-lg text-[20px]">Hamur Seç</h2>
-        <ThicknessMapping options={ThicknessOptions}/> 
+        <ThicknessMapping 
+        options={ThicknessOptions}
+        handleSelect={handleSelect}
+        thicknessError={thicknessError}
+        /> 
     </div>
   )
 }

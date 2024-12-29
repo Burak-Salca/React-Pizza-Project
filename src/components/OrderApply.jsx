@@ -1,6 +1,7 @@
 import React from 'react'
 
-export default function OrderApply() {
+export default function OrderApply(props) {
+  const {handleSubmit}=props;
   return (
     <div className="flex flex-col gap-4 border border-gray p-4 rounded-md w-1/2">
         <h2 className=" font-bold text-darkGray text-[22px]">Sipariş Toplamı</h2>
@@ -12,7 +13,7 @@ export default function OrderApply() {
             <p className="font-bold text-[18px] text-red">Toplam</p>
             <div>Toplam Fiyat</div>
         </div>
-        <button className='bg-yellow text-[22px] font-bold text-darkGray rounded-md p-4'>
+        <button className='bg-yellow text-[22px] font-bold text-darkGray rounded-md p-4' onClick={handleSubmit} >
             Sipariş Ver
         </button>
          

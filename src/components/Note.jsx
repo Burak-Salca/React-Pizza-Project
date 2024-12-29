@@ -20,7 +20,7 @@ export default function Note() {
             onChange={handleNoteChange}
         ></textarea>
         {error && (
-            <p className="text-red-600 text-[14px]">
+            <p className="text-red text-[14px]">
             Notunuz en az 3 karakter uzunluğunda olmalıdır.
             </p>
         )}

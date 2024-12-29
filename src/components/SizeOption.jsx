@@ -1,22 +1,27 @@
 import React, { useState } from 'react'
 import SizeMapping from './SizeMapping';
 
-export default function SizeOption() {
-    
-    const [selectedSize, setSelectedSize] = useState("");
+export default function SizeOption(props) {
+    const { sizeError, setErrors, setSelectedSize } = props;
     const sizes = ["Küçük", "Orta", "Büyük"];
 
     const handleSizeSelection = (e) => {
-        setSelectedSize(e.target.value); 
-      };
+      const selectedValue = e.target.value;
+      setSelectedSize(selectedValue); 
+      setErrors((prev) => ({ ...prev, sizeError: false })); 
+  };
     
   return (
     <div className="flex flex-col gap-4 font-barlow">
       <h2 className="font-bold text-lg text-[20px]">Boyut Seç</h2>
       <SizeMapping
         sizes={sizes}
-        selectedSize={selectedSize}
         onSizeChange={handleSizeSelection}/>
+      {sizeError && (
+        <p className="text-red text-sm">
+          Boyut seçmelisiniz!
+        </p>
+        )}
     </div>
   )
 }
