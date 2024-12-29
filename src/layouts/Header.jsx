@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation, Link } from 'react-router-dom/cjs/react-router-dom.min';
 
-export default function Header() {
+export default function Header({ customTitle }) {
     const location = useLocation();
     const isActive = (path) => location.pathname === path;
 
@@ -16,10 +16,10 @@ export default function Header() {
                         Ana Sayfa
                     </Link>
                     <span className="text-white text-lg font-bold font-barlow">
-                        →
+                        -
                     </span>
                     <span className={`text-lg font-bold font-barlow ${isActive('/orderPage') ? 'font-bold' : 'text-white'}`}>
-                        Sipariş Sayfası
+                        {customTitle}
                     </span>
                 </nav>
         </header>

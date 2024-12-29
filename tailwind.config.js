@@ -15,6 +15,8 @@ export default {
       },
       fontFamily: {
         barlow: ['Barlow', 'sans-serif'],
+        satisfy: ['Satisfy', 'sans-serif'],
+        roboto: ['"Roboto Condensed"', 'sans-serif'],
       },
     },
   },

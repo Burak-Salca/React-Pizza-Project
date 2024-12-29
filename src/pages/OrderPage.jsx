@@ -6,7 +6,7 @@ export default function OrderPage() {
   return (
     <div >
       <div>
-        <Header/>
+        <Header customTitle="Sipariş Sayfası"/>
       </div>
       <div >
         <OrderForm/>
