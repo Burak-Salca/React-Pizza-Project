@@ -19,6 +19,7 @@ export default function OrderForm() {
     const [selectedSize, setSelectedSize] = useState('');
     const [selectedThickness, setSelectedThickness] = useState('');
     const [selectedIngredients, setSelectedIngredients] = useState([]);
+    const [note, setNote] = useState('');
    
     const handleSubmit = () => {
         
@@ -34,8 +35,13 @@ export default function OrderForm() {
             isValid = false;
         }
 
-        if (selectedIngredients.length === 0 || errors.ingredientError) {
+        if (selectedIngredients.length < 4 || selectedIngredients.length > 10) {
             setErrors((prev) => ({ ...prev, ingredientError: true }));
+            isValid = false;
+        }
+
+        if (note.length < 3) {
+            setErrors((prev) => ({ ...prev, noteError: true }));
             isValid = false;
         }
         
@@ -46,11 +52,6 @@ export default function OrderForm() {
 
     const handleSelectIngredients = (selectedIngredients) => {
         setSelectedIngredients(selectedIngredients);
-        if (selectedIngredients.length < 4 || selectedIngredients.length > 10) {
-            setErrors((prev) => ({ ...prev, ingredientError: true }));
-        } else {
-            setErrors((prev) => ({ ...prev, ingredientError: false }));
-        }
     };
 
   return (
@@ -79,7 +80,11 @@ export default function OrderForm() {
                 />
             </div>
             <div>
-                <Note/>
+                <Note
+                noteError={errors.noteError}
+                setNoteError={(value) => setErrors((prev) => ({ ...prev, noteError: value }))}
+                setNote={setNote}
+                />
             </div>
             <hr className="border-t border-lightGray my-4" />
             <div>

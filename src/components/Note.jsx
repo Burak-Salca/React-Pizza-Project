@@ -1,14 +1,16 @@
 import React , { useState }from 'react'
 
-export default function Note() {
-    const [note, setNote] = useState('');
-    const [error, setError] = useState(false);
+export default function Note(props) {
+    const { noteError, setNoteError, setNote } = props;
+    const [noteInput, setNoteInput] = useState('');
 
     const handleNoteChange = (e) => {
-    const value = e.target.value;
-    setNote(value);
-    setError(value.length < 3);
-  };
+      const value = e.target.value;
+      setNoteInput(value);
+      setNote(value);
+      setNoteError(value.length < 3);
+    };
+
   return (
     <div className='flex flex-col gap-4 font-barlow'>
         <h2 className="font-bold text-lg text-[20px]">Sipariş Notu</h2>
@@ -16,10 +18,10 @@ export default function Note() {
         <textarea
             className="w-full h-[100px] border rounded-md p-2 text-[16px] text-darkGray"
             placeholder="Siparişine eklemek istediğin bir not var mı?"
-            value={note}
+            value={noteInput}
             onChange={handleNoteChange}
         ></textarea>
-        {error && (
+        {noteError  && (
             <p className="text-red text-[14px]">
             Notunuz en az 3 karakter uzunluğunda olmalıdır.
             </p>
