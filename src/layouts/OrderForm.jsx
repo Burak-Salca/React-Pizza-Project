@@ -20,7 +20,9 @@ export default function OrderForm() {
     const [selectedThickness, setSelectedThickness] = useState('');
     const [selectedIngredients, setSelectedIngredients] = useState([]);
     const [note, setNote] = useState('');
-   
+    const [extraPrice, setExtraPrice] = useState(0); 
+    const [totalPrice, setTotalPrice] = useState(85.50); 
+
     const handleSubmit = () => {
         
         let isValid = true;
@@ -54,6 +56,12 @@ export default function OrderForm() {
         setSelectedIngredients(selectedIngredients);
     };
 
+    const updateExtraPrice = (ingredientCount) => {
+        const newExtraPrice = ingredientCount * 5; 
+        setExtraPrice(newExtraPrice);
+        setTotalPrice(85.50 + newExtraPrice); 
+    };
+
   return (
     <div className="w-1/2 mx-auto flex flex-col h-screen mt-12 gap-4">
         <div>
@@ -77,6 +85,8 @@ export default function OrderForm() {
                 selectedIngredients={selectedIngredients}
                 ingredientError={errors.ingredientError}
                 setIngredientError={(value) => setErrors((prev) => ({ ...prev, ingredientError: value }))}
+                setExtraPrice={setExtraPrice}
+                updateExtraPrice={updateExtraPrice}
                 />
             </div>
             <div>
@@ -88,7 +98,11 @@ export default function OrderForm() {
             </div>
             <hr className="border-t border-lightGray my-4" />
             <div>
-                <AddToCart handleSubmit={handleSubmit}/>
+                <AddToCart 
+                handleSubmit={handleSubmit} 
+                extraPrice={extraPrice}
+                totalPrice={totalPrice}
+                />
             </div>
         </div>
     </div>

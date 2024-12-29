@@ -3,7 +3,7 @@ import NumberButton from './NumberButton';
 import OrderApply from './OrderApply';
 
 export default function AddToCart(props) {
-  const {handleSubmit} = props;
+  const {handleSubmit, extraPrice,totalPrice} = props;
   const [quantity, setQuantity] = useState(1);
 
   const increment = () => setQuantity(prev => prev + 1);
@@ -12,7 +12,11 @@ export default function AddToCart(props) {
   return (
     <div className="flex justify-between items-start mb-20">
       <NumberButton quantity={quantity} increment={increment} decrement={decrement} />
-      <OrderApply handleSubmit={handleSubmit} />
+      <OrderApply 
+      handleSubmit={handleSubmit} 
+      extraPrice={extraPrice} 
+      totalPrice={totalPrice}
+      />
     </div>
   );
 }

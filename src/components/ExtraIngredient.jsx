@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import IngredientMapping from './IngredientMapping'
 
 export default function ExtraIngredient(props) {
-    const {handleSelect, selectedIngredients, ingredientError, setIngredientError } = props;
+    const {handleSelect, selectedIngredients, ingredientError, setIngredientError, setExtraPrice, updateExtraPrice } = props;
     const ingredients = [
         "Pepperoni",
         "Kanada Jambonu",
@@ -23,7 +23,6 @@ export default function ExtraIngredient(props) {
     const [selected, setSelected] = useState(selectedIngredients);
     const [error, setError] = useState(null);
 
-    
     const handleChange = (ingredient) => {
         setSelected((prev) => {
             if (prev.includes(ingredient)) {
@@ -35,19 +34,22 @@ export default function ExtraIngredient(props) {
     };
 
     
+
     useEffect(() => {
         if (selected.length < 4 || selected.length > 10) {
             setError("Lütfen 4 ile 10 arasında malzeme seçin.");
         } else {
-            setError(null); 
+            setError(null);
+            updateExtraPrice(selected.length);
         }
-    }, [selected]); 
+    }, [selected,updateExtraPrice]);
 
-    
     useEffect(() => {
         setIngredientError(error);
         handleSelect(selected);
-    }, [error, selected, handleSelect, setIngredientError]);
+        setExtraPrice(selected.length * 5); 
+    }, [error, selected, handleSelect, setIngredientError, setExtraPrice]);
+
 
   return (
     <div className='flex flex-col gap-4 font-barlow'>
