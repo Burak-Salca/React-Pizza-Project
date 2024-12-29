@@ -18,8 +18,10 @@ export default function OrderForm() {
     const [errors, setErrors] = useState(initialErrors);
     const [selectedSize, setSelectedSize] = useState('');
     const [selectedThickness, setSelectedThickness] = useState('');
-
+    const [selectedIngredients, setSelectedIngredients] = useState([]);
+   
     const handleSubmit = () => {
+        
         let isValid = true;
 
         if (!selectedSize) {
@@ -31,9 +33,23 @@ export default function OrderForm() {
             setErrors((prev) => ({ ...prev, thicknessError: true }));
             isValid = false;
         }
+
+        if (selectedIngredients.length === 0 || errors.ingredientError) {
+            setErrors((prev) => ({ ...prev, ingredientError: true }));
+            isValid = false;
+        }
         
         if (isValid) {
             console.log('Sipariş başarıyla gönderildi!');
+        }
+    };
+
+    const handleSelectIngredients = (selectedIngredients) => {
+        setSelectedIngredients(selectedIngredients);
+        if (selectedIngredients.length < 4 || selectedIngredients.length > 10) {
+            setErrors((prev) => ({ ...prev, ingredientError: true }));
+        } else {
+            setErrors((prev) => ({ ...prev, ingredientError: false }));
         }
     };
 
@@ -55,7 +71,12 @@ export default function OrderForm() {
                 />
             </div>
             <div>
-                <ExtraIngredient/>
+                <ExtraIngredient
+                handleSelect={handleSelectIngredients}
+                selectedIngredients={selectedIngredients}
+                ingredientError={errors.ingredientError}
+                setIngredientError={(value) => setErrors((prev) => ({ ...prev, ingredientError: value }))}
+                />
             </div>
             <div>
                 <Note/>

@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import IngredientMapping from './IngredientMapping'
 
-export default function ExtraIngredient() {
+export default function ExtraIngredient(props) {
+    const {handleSelect, selectedIngredients, ingredientError, setIngredientError } = props;
     const ingredients = [
         "Pepperoni",
         "Kanada Jambonu",
@@ -19,17 +20,34 @@ export default function ExtraIngredient() {
         "Kabak"
     ]
 
-    const [selectedIngredients, setSelectedIngredients] = useState([]);
+    const [selected, setSelected] = useState(selectedIngredients);
+    const [error, setError] = useState(null);
 
+    
     const handleChange = (ingredient) => {
-        if (selectedIngredients.includes(ingredient)) {
-            setSelectedIngredients((prev) =>
-                prev.filter((item) => item !== ingredient)
-            );
-        } else {
-            setSelectedIngredients((prev) => [...prev, ingredient]);
-        }
+        setSelected((prev) => {
+            if (prev.includes(ingredient)) {
+                return prev.filter((item) => item !== ingredient);
+            } else {
+                return [...prev, ingredient];
+            }
+        });
     };
+
+    
+    useEffect(() => {
+        if (selected.length < 4 || selected.length > 10) {
+            setError("Lütfen 4 ile 10 arasında malzeme seçin.");
+        } else {
+            setError(null); 
+        }
+    }, [selected]); 
+
+    
+    useEffect(() => {
+        setIngredientError(error);
+        handleSelect(selected);
+    }, [error, selected, handleSelect, setIngredientError]);
 
   return (
     <div className='flex flex-col gap-4 font-barlow'>
@@ -44,6 +62,8 @@ export default function ExtraIngredient() {
                 isChecked={selectedIngredients.includes(ingredient)}/>
             ))}
         </div>
+        { error  && (<p className="text-red text-sm mt-2">Lütfen 4 ile 10 arasında malzeme seçin.</p>
+        )}
     </div>
   )
 }
