@@ -3,11 +3,24 @@ import NumberButton from './NumberButton';
 import OrderApply from './OrderApply';
 
 export default function AddToCart(props) {
-  const {handleSubmit, extraPrice,totalPrice} = props;
-  const [quantity, setQuantity] = useState(1);
+  const {handleSubmit, extraPrice,totalPrice, quantity, setQuantity, updateTotalPrice} = props;
+  
 
-  const increment = () => setQuantity(prev => prev + 1);
-  const decrement = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
+  const increment = () => {
+    setQuantity((prev) => {
+      const newQuantity = prev + 1;
+      updateTotalPrice(newQuantity); 
+      return newQuantity;
+    });
+  };
+
+  const decrement = () => {
+    setQuantity((prev) => {
+      const newQuantity = prev > 1 ? prev - 1 : 1;
+      updateTotalPrice(newQuantity); 
+      return newQuantity;
+    });
+  };
 
   return (
     <div className="flex justify-between items-start mb-20">

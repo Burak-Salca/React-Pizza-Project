@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductInfo from '../components/ProductInfo'
 import SizeOption from '../components/SizeOption'
 import ThicknessOption from '../components/ThicknessOption'
@@ -8,6 +8,7 @@ import AddToCart from '../components/AddToCart'
 
 
 export default function OrderForm() {
+    const basePrice = 85.50;
     const initialErrors = {
         sizeError: false,
         thicknessError: false, 
@@ -21,7 +22,8 @@ export default function OrderForm() {
     const [selectedIngredients, setSelectedIngredients] = useState([]);
     const [note, setNote] = useState('');
     const [extraPrice, setExtraPrice] = useState(0); 
-    const [totalPrice, setTotalPrice] = useState(85.50); 
+    const [totalPrice, setTotalPrice] = useState(basePrice); 
+    const [quantity, setQuantity] = useState(1);
 
     const handleSubmit = () => {
         
@@ -57,10 +59,26 @@ export default function OrderForm() {
     };
 
     const updateExtraPrice = (ingredientCount) => {
-        const newExtraPrice = ingredientCount * 5; 
+        const newExtraPrice = ingredientCount * 5;
         setExtraPrice(newExtraPrice);
-        setTotalPrice(85.50 + newExtraPrice); 
     };
+
+    const updateTotalPrice = () => {
+        if (quantity > 1) {
+            setTotalPrice((basePrice + extraPrice) * quantity);
+        } else {
+            setTotalPrice(basePrice + extraPrice);
+        }
+    };
+
+    useEffect(() => {
+        updateTotalPrice();
+    }, [extraPrice]);
+
+    
+    useEffect(() => {
+        updateTotalPrice();
+    }, [quantity]);
 
   return (
     <div className="w-1/2 mx-auto flex flex-col h-screen mt-12 gap-4">
@@ -102,6 +120,9 @@ export default function OrderForm() {
                 handleSubmit={handleSubmit} 
                 extraPrice={extraPrice}
                 totalPrice={totalPrice}
+                quantity={quantity}
+                setQuantity={setQuantity}
+                updateTotalPrice={updateTotalPrice}
                 />
             </div>
         </div>
