@@ -76,28 +76,17 @@ export default function OrderForm() {
 
     const handleSelectIngredients = (selectedIngredients) => {
         setSelectedIngredients(selectedIngredients);
-    };
-
-    const updateExtraPrice = (ingredientCount) => {
-        const newExtraPrice = ingredientCount * 5;
+        const newExtraPrice = selectedIngredients.length * 5;
         setExtraPrice(newExtraPrice);
     };
 
-    const updateTotalPrice = () => {
-        if (quantity > 1) {
-            setTotalPrice((basePrice + extraPrice) * quantity);
-        } else {
-            setTotalPrice(basePrice + extraPrice);
-        }
+    const updateTotalPrice = (newQuantity) => {
+        setTotalPrice((basePrice + extraPrice) * newQuantity);
     };
 
     useEffect(() => {
-        updateTotalPrice();
-    }, [extraPrice]);
-
-    useEffect(() => {
-        updateTotalPrice();
-    }, [quantity]);
+        updateTotalPrice(quantity);
+    }, [extraPrice, quantity, basePrice]);
 
     return (
         <div className="w-1/2 mx-auto flex flex-col h-screen mt-12 gap-4">
@@ -123,8 +112,6 @@ export default function OrderForm() {
                         selectedIngredients={selectedIngredients}
                         ingredientError={errors.ingredientError}
                         setIngredientError={(value) => setErrors((prev) => ({ ...prev, ingredientError: value }))}
-                        setExtraPrice={setExtraPrice}
-                        updateExtraPrice={updateExtraPrice}
                     />
                 </div>
                 <div>

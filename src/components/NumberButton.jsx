@@ -3,7 +3,7 @@ import React from 'react'
 export default function NumberButton(props) {
     const {quantity, increment, decrement}=props;
     return (
-        <div className="flex items-center">
+        <div className="flex items-center justify-between w-full md:w-auto">
           <button
             onClick={decrement}
             className="bg-yellow text-black w-[57px] h-[57px] rounded-lg font-bold text-xl flex items-center justify-center"

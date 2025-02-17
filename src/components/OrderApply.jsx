@@ -1,14 +1,12 @@
 import React from 'react';
 
 export default function OrderApply(props) {
-    const { handleSubmit, extraPrice, totalPrice, errors = {} } = props;
+    const { handleSubmit, extraPrice, totalPrice, errors = {}, className } = props;
 
     const isDisabled = Object.values(errors).some((error) => error === true);
 
-    
-
     return (
-        <div className="flex flex-col gap-4 border border-gray p-4 rounded-md w-1/2">
+        <div className={`flex flex-col gap-4 border border-gray p-4 rounded-md ${className}`}>
             <h2 className="font-bold text-darkGray text-[22px]">Sipariş Toplamı</h2>
             <div className="flex justify-between">
                 <p className="font-bold text-[18px] text-lightGray">Seçimler</p>

@@ -1,13 +1,12 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import IngredientMapping from "./IngredientMapping";
 
 export default function ExtraIngredient(props) {
   const {
     handleSelect,
     selectedIngredients,
+    ingredientError,
     setIngredientError,
-    setExtraPrice,
-    updateExtraPrice,
   } = props;
 
   const ingredients = [
@@ -27,34 +26,15 @@ export default function ExtraIngredient(props) {
     "Kabak",
   ];
 
-  const [selected, setSelected] = useState(selectedIngredients);
-  const [error, setError] = useState(null);
-
   const handleChange = (ingredient) => {
-    setSelected((prev) => {
-      if (prev.includes(ingredient)) {
-        return prev.filter((item) => item !== ingredient);
-      } else {
-        return [...prev, ingredient];
-      }
-    });
+    const newSelected = selectedIngredients.includes(ingredient)
+      ? selectedIngredients.filter((item) => item !== ingredient)
+      : [...selectedIngredients, ingredient];
+    
+    const isInvalidCount = newSelected.length < 4 || newSelected.length > 10;
+    setIngredientError(isInvalidCount);
+    handleSelect(newSelected);
   };
-
-  // Hata kontrolü ve ek fiyat hesaplama
-  useEffect(() => {
-    if (selected.length < 4 || selected.length > 10) {
-      setError("Lütfen 4 ile 10 arasında malzeme seçin.");
-    } else {
-      setError(null);
-      setExtraPrice(selected.length * 5); // Ek fiyat hesaplama
-    }
-  }, [selected, setExtraPrice]);
-
-  // Hata durumunu ve seçilen malzemeleri üst bileşene iletme
-  useEffect(() => {
-    setIngredientError(error);
-    handleSelect(selected);
-  }, [error, selected, handleSelect, setIngredientError]);
 
   return (
     <div className="flex flex-col gap-4 font-barlow">
@@ -68,14 +48,12 @@ export default function ExtraIngredient(props) {
             key={index}
             ingredient={ingredient}
             handleChange={handleChange}
-            isChecked={selected.includes(ingredient)}
+            isChecked={selectedIngredients.includes(ingredient)}
           />
         ))}
       </div>
-      {error && (
-        <p className="text-red text-sm mt-2">
-          Lütfen 4 ile 10 arasında malzeme seçin.
-        </p>
+      {ingredientError && (
+        <p className="text-red text-sm mt-2">Lütfen 4 ile 10 arasında malzeme seçin.</p>
       )}
     </div>
   );

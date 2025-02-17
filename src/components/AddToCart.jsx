@@ -23,12 +23,13 @@ export default function AddToCart(props) {
   };
 
   return (
-    <div className="flex justify-between items-start mb-20">
+    <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-20 w-full">
       <NumberButton quantity={quantity} increment={increment} decrement={decrement} />
       <OrderApply 
-      handleSubmit={handleSubmit} 
-      extraPrice={extraPrice} 
-      totalPrice={totalPrice}
+        handleSubmit={handleSubmit} 
+        extraPrice={extraPrice} 
+        totalPrice={totalPrice}
+        className="w-full md:w-1/2"
       />
     </div>
   );
