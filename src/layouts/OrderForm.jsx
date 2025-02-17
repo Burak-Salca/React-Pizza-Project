@@ -94,7 +94,7 @@ export default function OrderForm() {
                 <ProductInfo />
             </div>
             <div className="font-barlow font-flex flex-col space-y-10">
-                <div className="flex justify-between items-start mt-6">
+                <div className="flex flex-col md:flex-row justify-between items-start gap-4">
                     <SizeOption
                         sizeError={errors.sizeError}
                         setErrors={setErrors}
