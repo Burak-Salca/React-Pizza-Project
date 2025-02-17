@@ -42,7 +42,7 @@ export default function ExtraIngredient(props) {
       <p className="text-[16px] font-barlow text-darkGray">
         En az 4, en fazla 10 malzeme seçebilirsiniz. 5₺
       </p>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         {ingredients.map((ingredient, index) => (
           <IngredientMapping
             key={index}
